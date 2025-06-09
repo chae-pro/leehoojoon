@@ -26,7 +26,7 @@ export default function SuccessModal({ isOpen, onClose, onDownloadPdf }: Success
         <div className="text-center">
           <p className="text-gray-600 mb-6">
             설문지가 성공적으로 제출되었습니다.<br />
-            담당 변호사가 검토 후 연락드리겠습니다.
+            아래 버튼을 클릭하여 PDF를 다운로드하세요.
           </p>
           
           <div className="space-y-3">

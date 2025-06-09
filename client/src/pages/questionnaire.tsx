@@ -23,7 +23,6 @@ import ProgressBar from "@/components/questionnaire/ProgressBar";
 import SuccessModal from "@/components/questionnaire/SuccessModal";
 import { useFormProgress } from "@/hooks/useFormProgress";
 import { generatePDF } from "@/lib/pdfGenerator";
-import { sendEmail } from "@/lib/emailService";
 
 export default function Questionnaire() {
   const { toast } = useToast();
@@ -129,9 +128,6 @@ export default function Questionnaire() {
         const pdfBlob = await generatePDF(data);
         setGeneratedPdfBlob(pdfBlob);
 
-        // Send email
-        await sendEmail(data, pdfBlob);
-
         // Clear saved form data
         localStorage.removeItem('divorceFormData');
         
@@ -140,13 +136,13 @@ export default function Questionnaire() {
         
         toast({
           title: "제출 완료",
-          description: "설문지가 성공적으로 제출되었습니다.",
+          description: "설문지가 성공적으로 제출되었습니다. PDF를 다운로드하세요.",
         });
       } catch (error) {
         console.error('Error in post-submission process:', error);
         toast({
           title: "제출 완료",
-          description: "설문지는 제출되었지만 일부 기능에서 오류가 발생했습니다.",
+          description: "설문지는 제출되었지만 PDF 생성 중 오류가 발생했습니다.",
           variant: "destructive",
         });
       }
@@ -225,7 +221,7 @@ export default function Questionnaire() {
                 )}
               </Button>
               <p className="text-sm text-gray-600 mt-4">
-                제출 시 설문지가 PDF로 생성되어 담당 변호사에게 전송됩니다.
+                제출 시 설문지가 PDF로 생성되어 다운로드 가능합니다.
               </p>
             </div>
           </form>
